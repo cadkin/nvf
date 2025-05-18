@@ -84,6 +84,14 @@
                 silent = true;
                 action = "<Cmd>BufferLinePickClose<cr>";
               }
+
+              # Close tab
+              {
+                key    = "<leader>w";
+                mode   = "n";
+                silent = true;
+                action = "<Cmd>bp|bd#<cr>";
+              }
             ];
 
             lineNumberMode = "number";
@@ -117,10 +125,27 @@
               };
             };
 
+            undoFile = {
+              enable = true;
+            };
+
+            debugger = {
+              nvim-dap = {
+                enable = true;
+                ui.enable = true;
+              };
+            };
+
             statusline = {
               lualine = {
                 enable = true;
-                theme  = "molokai";
+                theme  = "dracula";
+              };
+            };
+
+            filetree = {
+              neo-tree = {
+                enable = true;
               };
             };
 
@@ -138,6 +163,17 @@
                   };
                 };
               };
+            };
+
+            autocomplete = {
+              nvim-cmp = {
+                enable = true;
+              };
+            };
+
+            lsp = {
+              enable = true;
+              lightbulb.enable = true;
             };
 
             fzf-lua = {
@@ -192,6 +228,19 @@
                 vimdoc
                 yaml
               ];
+            };
+
+            languages = {
+              clang = {
+                enable = true;
+                dap.enable = true;
+                lsp.enable = true;
+              };
+
+              nix = {
+                enable = true;
+                lsp.enable = true;
+              };
             };
           };
         }
