@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs;
-    nvf.url     = github:notashelf/nvf;
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    nvf.url     = "github:notashelf/nvf";
   };
 
   outputs = inputs @ { self, ... }: let
@@ -62,6 +62,13 @@
                 mode   = "n";
                 silent = true;
                 action = "<Cmd>FzfLua files<cr>";
+              }
+
+              {
+                key    = "<C-l>";
+                mode   = "n";
+                silent = true;
+                action = "<Cmd>FzfLua live_grep<cr>";
               }
 
               {
