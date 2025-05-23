@@ -1,12 +1,11 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
+    utils.url   = "github:numtide/flake-utils";
     nvf.url     = "github:notashelf/nvf";
   };
 
-  outputs = inputs @ { self, ... }: let
-    system = "x86_64-linux";
-
+  outputs = inputs @ { self, utils, ... }: utils.lib.eachDefaultSystem (system: let
     pkgs = import inputs.nixpkgs {
       allowUnfree = true;
       inherit system;
@@ -254,9 +253,9 @@
       ];
     };
   in {
-    packages.${system} = rec {
+    packages = rec {
       default = neovim;
       inherit (neovimConfig) neovim;
     };
-  };
+  });
 }
