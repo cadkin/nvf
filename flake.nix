@@ -184,6 +184,9 @@
 
             fzf-lua = {
               enable = true;
+              setupOpts = {
+                files.cmd = "rg --files --hidden --glob !.git/ --color never";
+              };
             };
 
             treesitter = {
