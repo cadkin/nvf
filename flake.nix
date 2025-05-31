@@ -248,6 +248,20 @@
                 lsp.enable = true;
               };
             };
+
+            utility = {
+              diffview-nvim = {
+                enable = true;
+              };
+            };
+
+            extraPlugins = {
+              neogit = {
+                package = pkgs.vimPlugins.neogit;
+                setup   = "require('neogit').setup {}";
+                after   = [ "plenary-nvim" "diffview-nvim" "fzf-lua" ];
+              };
+            };
           };
         }
       ];
