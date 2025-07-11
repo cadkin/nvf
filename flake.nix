@@ -71,32 +71,56 @@
               }
 
               {
-                key    = "<S-k>";
-                mode   = "n";
-                silent = true;
-                action = "<Cmd>BufferLineCycleNext<cr>";
-              }
-
-              {
-                key    = "<S-j>";
-                mode   = "n";
-                silent = true;
-                action = "<Cmd>BufferLineCyclePrev<cr>";
-              }
-
-              {
                 key    = "<C-x>";
                 mode   = "n";
                 silent = true;
                 action = "<Cmd>BufferLinePickClose<cr>";
               }
 
-              # Close tab
+              # Cmd mode from ;
               {
-                key    = "<leader>w";
+                key    = ";";
                 mode   = "n";
+                silent = false;
+                action = ":";
+              }
+
+              # Quitting should close "tabs" (aka buffers in vim lingo)
+              {
+                key    = "q";
+                mode   = "ca";
                 silent = true;
-                action = "<Cmd>bp|bd#<cr>";
+                lua    = true;
+                action = ''
+                  function()
+                    buffers = vim.api.nvim_list_bufs()
+
+                    if (#buffers > 1) then
+                      require("bufdelete").bufdelete()
+                    else
+                      vim.cmd("quit")
+                    end
+                  end
+                '';
+              }
+
+              {
+                key    = "wq";
+                mode   = "ca";
+                silent = true;
+                lua    = true;
+                action = ''
+                  function()
+                    vim.cmd("write")
+                    buffers = vim.api.nvim_list_bufs()
+
+                    if (#buffers > 1) then
+                      require("bufdelete").bufdelete()
+                    else
+                      vim.cmd("quit")
+                    end
+                  end
+                '';
               }
             ];
 
@@ -161,6 +185,12 @@
             tabline = {
               nvimBufferline = {
                 enable = true;
+
+                mappings = {
+                  closeCurrent = "<leader>w";
+                  cycleNext = "<S-k>";
+                  cyclePrevious = "<S-l>";
+                };
 
                 setupOpts.options = {
                   always_show_bufferline = false;
