@@ -152,6 +152,9 @@
             filetree = {
               neo-tree = {
                 enable = true;
+                setupOpts = {
+                  close_if_last_window = true;
+                };
               };
             };
 
