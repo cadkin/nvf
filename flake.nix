@@ -77,6 +77,20 @@
                 action = "<Cmd>BufferLinePickClose<cr>";
               }
 
+              {
+                key     = "<leader>g";
+                mode    = [ "n" "o" "x" ];
+                silent  = false;
+                lua     = true;
+                # Some weirdness with lazyvim keys options:
+                # https://github.com/ggandor/leap.nvim/issues/191
+                action  = ''
+                  function()
+                    require("leap").leap({ target_windows = { vim.api.nvim_get_current_win() } })
+                  end
+                '';
+              }
+
               # Cmd mode from ;
               {
                 key    = ";";
@@ -93,12 +107,18 @@
                 lua    = true;
                 action = ''
                   function()
-                    buffers = vim.api.nvim_list_bufs()
+                    loaded_buffers = {}
 
-                    if (#buffers > 1) then
+                    for buffer in pairs(vim.api.nvim_list_bufs()) do
+                      if (vim.api.nvim_buf_is_loaded(buffer)) then
+                        table.insert(loaded_buffers, buffer)
+                      end
+                    end
+
+                    if (#loaded_buffers > 1) then
                       require("bufdelete").bufdelete()
                     else
-                      vim.cmd("quit")
+                      vim.cmd("quitall")
                     end
                   end
                 '';
@@ -112,12 +132,18 @@
                 action = ''
                   function()
                     vim.cmd("write")
-                    buffers = vim.api.nvim_list_bufs()
+                    loaded_buffers = {}
 
-                    if (#buffers > 1) then
+                    for buffer in pairs(vim.api.nvim_list_bufs()) do
+                      if (vim.api.nvim_buf_is_loaded(buffer)) then
+                        table.insert(loaded_buffers, buffer)
+                      end
+                    end
+
+                    if (#loaded_buffers > 1) then
                       require("bufdelete").bufdelete()
                     else
-                      vim.cmd("quit")
+                      vim.cmd("quitall")
                     end
                   end
                 '';
@@ -189,7 +215,7 @@
                 mappings = {
                   closeCurrent = "<leader>w";
                   cycleNext = "<S-k>";
-                  cyclePrevious = "<S-l>";
+                  cyclePrevious = "<S-j>";
                 };
 
                 setupOpts.options = {
@@ -206,6 +232,12 @@
 
             autocomplete = {
               nvim-cmp = {
+                enable = true;
+              };
+            };
+
+            utility.motion = {
+              leap = {
                 enable = true;
               };
             };
