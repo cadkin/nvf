@@ -71,6 +71,13 @@
               }
 
               {
+                key    = "<C-\\>";
+                mode   = "n";
+                silent = true;
+                action = "<Cmd>FzfLua buffers<cr>";
+              }
+
+              {
                 key    = "<C-x>";
                 mode   = "n";
                 silent = true;
@@ -223,7 +230,7 @@
                   diagnostics_indicator = null;
                   numbers = "none";
                   indicator = {
-                    icon  = " ";
+                    icon  = "  ";
                     style = "icon";
                   };
                 };
