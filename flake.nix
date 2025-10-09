@@ -105,56 +105,6 @@
                 silent = false;
                 action = ":";
               }
-
-              # Quitting should close "tabs" (aka buffers in vim lingo)
-              {
-                key    = "q";
-                mode   = "ca";
-                silent = true;
-                lua    = true;
-                action = ''
-                  function()
-                    loaded_buffers = {}
-
-                    for buffer in pairs(vim.api.nvim_list_bufs()) do
-                      if (vim.api.nvim_buf_is_loaded(buffer)) then
-                        table.insert(loaded_buffers, buffer)
-                      end
-                    end
-
-                    if (#loaded_buffers > 1) then
-                      require("bufdelete").bufdelete()
-                    else
-                      vim.cmd("quitall")
-                    end
-                  end
-                '';
-              }
-
-              {
-                key    = "wq";
-                mode   = "ca";
-                silent = true;
-                lua    = true;
-                action = ''
-                  function()
-                    vim.cmd("write")
-                    loaded_buffers = {}
-
-                    for buffer in pairs(vim.api.nvim_list_bufs()) do
-                      if (vim.api.nvim_buf_is_loaded(buffer)) then
-                        table.insert(loaded_buffers, buffer)
-                      end
-                    end
-
-                    if (#loaded_buffers > 1) then
-                      require("bufdelete").bufdelete()
-                    else
-                      vim.cmd("quitall")
-                    end
-                  end
-                '';
-              }
             ];
 
             lineNumberMode = "number";
