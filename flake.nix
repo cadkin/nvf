@@ -206,6 +206,16 @@
 
             fzf-lua = {
               enable = true;
+
+              setupOpts = {
+                files = {
+                  formatter = "path.filename_first";
+                };
+
+                grep = {
+                  formatter = "path.filename_first";
+                };
+              };
             };
 
             treesitter = {
