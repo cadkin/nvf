@@ -85,6 +85,13 @@
               }
 
               {
+                key    = "\\";
+                mode   = "n";
+                silent = true;
+                action = "<Cmd>Neotree toggle<cr>";
+              }
+
+              {
                 key     = "<leader>g";
                 mode    = [ "n" "o" "x" ];
                 silent  = false;
@@ -299,6 +306,50 @@
                 setup   = "require('neogit').setup {}";
                 after   = [ "plenary-nvim" "diffview-nvim" "fzf-lua" ];
               };
+            };
+
+            dashboard.startify = {
+              enable = true;
+              customHeader = [ "nvim" ];
+              changeToVCRoot = true;
+              sessionPersistence = true;
+              sessionDir = "~/.nvim/sessions";
+              sessionSavecmds = [
+                "Neotree close"
+              ];
+
+              lists = [
+                {
+                  header = [
+                    "recent"
+                  ];
+                  type = "files";
+                }
+                {
+                  header = [
+                    "recent (local)"
+                  ];
+                  type = "dir";
+                }
+                {
+                  header = [
+                    "sessions"
+                  ];
+                  type = "sessions";
+                }
+                {
+                  header = [
+                    "bookmarks"
+                  ];
+                  type = "bookmarks";
+                }
+                {
+                  header = [
+                    "commands"
+                  ];
+                  type = "commands";
+                }
+              ];
             };
           };
         }
