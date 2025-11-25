@@ -206,12 +206,6 @@
               };
             };
 
-            utility.motion = {
-              leap = {
-                enable = true;
-              };
-            };
-
             lsp = {
               enable = true;
               lightbulb.enable = true;
@@ -292,12 +286,19 @@
                 enable = true;
                 lsp.enable = true;
               };
+
+              python = {
+                enable = true;
+                lsp.enable = true;
+              };
             };
 
-            utility = {
-              diffview-nvim = {
-                enable = true;
-              };
+            utility.diffview-nvim = {
+              enable = true;
+            };
+
+            utility.direnv = {
+              enable = true;
             };
 
             extraPlugins = {
